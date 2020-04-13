@@ -50,6 +50,7 @@ export default class HomeScreen extends Component{
   render(){
     return(
       <View style={styles.container}>
+        <Text>{this.state.userName}</Text>
         <TextInput 
         placeholder='Name'
         value={this.state.userName}

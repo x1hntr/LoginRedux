@@ -1,4 +1,4 @@
-import React, { Component, cloneElement } from 'react';
+import React, { Component, cloneElement, setState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, AsyncStorage, TextInput} from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,18 +11,27 @@ export default class Details extends Component{
     constructor(props){
         super(props);
         this.loadData();
+        this.state={
+            userName:'',
+            password:''
+        }
     }
   render(){
     return(
       <View style={styles.container}>  
         <Text style={styles.title}>
-            hola:
-        </Text>
+            Hola: {this.state.password}
+            Password: {this.state.userName}
+
+                    </Text>
       </View>
     );
   }
   loadData = async() => {
-      const value = await AsyncStorage.getItem('pass')
-      console.log(value)
+      let pss = await AsyncStorage.getItem('pass')
+      let usern = await AsyncStorage.getItem('user')
+      console.log(pss);
+      this.setState({userName:usern});
+      this.setState({password:pss});
   }
 }
