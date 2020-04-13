@@ -43,6 +43,8 @@ export default class HomeScreen extends Component{
   resetData() {
     try {
     AsyncStorage.removeItem('pass');
+    AsyncStorage.removeItem('user');
+
       } catch (error) {
       console.log("Error resetting data" + error);
     }
@@ -50,29 +52,37 @@ export default class HomeScreen extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <Text>{this.state.userName}</Text>
-        <TextInput 
-        placeholder='Name'
+        <TextInput style={styles.input}
+        placeholder='Username'
         value={this.state.userName}
         onChangeText={(userName) => this.ChangeName(userName)}
         />
-        <TextInput 
+        <TextInput style={styles.input}
         placeholder='password'
         value={this.state.password}
         onChangeText={(password) => this.ChangeLastName(password)}
         />
         
-        <TouchableOpacity onPress={() => this.saveData()}>
-          <Text>save</Text>
+        <TouchableOpacity style={styles.button}
+        onPress={() => this.saveData()}>
+          <Text style={styles.buttonText}
+          >SAVE</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.resetData()}>
-          <Text>Delete</Text>
+        <TouchableOpacity style={styles.button}
+         onPress={() => this.resetData()}>
+          <Text style={styles.buttonText}
+          >DELETE</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={this.displayData}>
-          <Text>Show</Text>
+        <TouchableOpacity style={styles.button}
+        onPress={this.displayData}>
+          <Text style={styles.buttonText}
+          >INFO</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', this.state)}>
-          <Text>GETIN</Text>
+        <TouchableOpacity style={styles.button}
+
+        onPress={() => this.props.navigation.navigate('Details', this.state)}>
+          <Text style={styles.buttonText}
+          >GETIN</Text>
         </TouchableOpacity>
       </View>
     );

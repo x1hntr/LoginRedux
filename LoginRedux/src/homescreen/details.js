@@ -20,10 +20,11 @@ export default class Details extends Component{
     return(
       <View style={styles.container}>  
         <Text style={styles.title}>
-            Hola: {this.state.password}
-            Password: {this.state.userName}
-
-                    </Text>
+            Hola:{this.state.userName} 
+        </Text>
+        <Text style={styles.title}>
+            Password:{this.state.password}       
+        </Text>
       </View>
     );
   }
