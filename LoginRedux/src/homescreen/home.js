@@ -3,83 +3,48 @@ import {StyleSheet, Text, View, TouchableOpacity, AsyncStorage, TextInput} from 
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { connect } from 'react-redux'
 import  { styles } from '../styles/sty'
+
+import { credentialsSet } from '../actions/loginActions'
 
 let user;
 let pass;
-export default class HomeScreen extends Component{
-  constructor(){
-    super()
+class HomeScreen extends Component{
+  constructor(props){
+    super(props);
     this.state={
-      userName:'',
-      password:''
-    }
+      userName: null,
+      password: null
+        }
+    this.changeName = this.changeName.bind(this);
   }
-  
-  ChangeName(userName){
-    this.setState({userName})
-  }
-  ChangeLastName(password){
-    this.setState({password})
-  }
-  saveData(userName, password){
-    AsyncStorage.setItem('user', this.state.userName)
-    AsyncStorage.setItem('pass', this.state.password)
-
-  }
-  displayData = async () => {
-    try{
-            alert(await AsyncStorage.getItem('user') + ' ' + await AsyncStorage.getItem('pass'));
-    }
-   catch(error){
-     alert(error);
-   } 
-  }
-  buttonPressed(){
-    if(this.state.userName && this.state.password)
-    alert(this.state.userName+ ''+ this.state.password);
-  }
-  resetData() {
-    try {
-    AsyncStorage.removeItem('pass');
-    AsyncStorage.removeItem('user');
-
-      } catch (error) {
-      console.log("Error resetting data" + error);
-    }
+  changeName(){
+    this.props.credentialsSet(this.state.userName, this.state.password);
   }
   render(){
+    console.log('WELLCOME: ' + this.state.userName);
+    console.log('PASSWORD: ' + this.props.password);
+
     return(
       <View style={styles.container}>
         <TextInput style={styles.input}
         placeholder='Username'
         value={this.state.userName}
-        onChangeText={(userName) => this.ChangeName(userName)}
+        onChangeText={(userName) => this.setState({userName})}
         />
         <TextInput style={styles.input}
-        placeholder='password'
+        placeholder='passs'
         value={this.state.password}
-        onChangeText={(password) => this.ChangeLastName(password)}
+        onChangeText={(password) => this.setState({password})}
         />
-        
         <TouchableOpacity style={styles.button}
-        onPress={() => this.saveData()}>
+        onPress={(userName, password) => {this.changeName(userName, password)}}>
           <Text style={styles.buttonText}
           >SAVE</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity style={styles.button}
-         onPress={() => this.resetData()}>
-          <Text style={styles.buttonText}
-          >DELETE</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
-        onPress={this.displayData}>
-          <Text style={styles.buttonText}
-          >INFO</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
-
         onPress={() => this.props.navigation.navigate('Details', this.state)}>
           <Text style={styles.buttonText}
           >GETIN</Text>
@@ -87,4 +52,10 @@ export default class HomeScreen extends Component{
       </View>
     );
   }
+}mapStateToProps = (state) =>{
+  return{
+    userName: state.userName,
+    password: state.password
+  }
 }
+export default connect(mapStateToProps, {credentialsSet})(HomeScreen);
