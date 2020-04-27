@@ -23,7 +23,7 @@ class HomeScreen extends Component{
     this.props.credentialsSet(this.state.userName, this.state.password);
   }
   render(){
-    console.log('WELLCOME: ' + this.state.userName);
+    console.log('WELLCOME: ' + this.props.userName);
     console.log('PASSWORD: ' + this.props.password);
 
     return(
@@ -34,7 +34,7 @@ class HomeScreen extends Component{
         onChangeText={(userName) => this.setState({userName})}
         />
         <TextInput style={styles.input}
-        placeholder='passs'
+        placeholder='Password'
         value={this.state.password}
         onChangeText={(password) => this.setState({password})}
         />

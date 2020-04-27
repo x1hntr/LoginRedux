@@ -20,7 +20,7 @@ class Details extends Component{
           HI: {this.props.userName}
         </Text>
         <Text style={styles.title}>
-          HI: {this.state.password}
+          Password: {this.state.password}
         </Text>
       </View>
     );
